@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+   
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="profile" class="profile-section">
+                <h1>User Profile</h1>
+                <div id="profile-info">
+                    <p><strong>Name:</strong> <span id="user-name">John Doe</span></p>
+                    <p><strong>Email:</strong> <span id="user-email">johndoe@example.com</span></p>
+                    <p><strong>Properties Purchased:</strong> <span id="user-properties">3</span></p>
+                    <button onclick="editProfile()">Edit Profile</button>
+                </div>
+                <div id="edit-form" class="edit-form" style="display: none;">
+                    <h2>Edit Profile</h2>
+                    <form onsubmit="return validateForm()">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" value="John Doe" required>
+                        <br>    
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="johndoe@example.com" required>
+                        <br>
+                        <label for="properties">Properties Purchased:</label>
+                        <input type="number" id="properties" name="properties" value="3" min="0" required>
+                        <br>
+                        
+                        <button class="submit" type="submit">Save Changes</button>
+                        <button class = "Cancel" type="button" onclick="cancelEdit()">Cancel</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="settings" class="settings-section">
+                <h1>Settings</h1>
+                <p>Settings content goes here.</p>
+            </section>
+        </main>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+}
+.Cancel{
+    width : 200px;
+}
+.submit{
+   width: 200px;
+}
+.sidebar {
+    width: 250px;
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+.profile-section, .settings-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h1, .settings-section h1 {
+    margin-top: 0;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-top: 10px;
+}
+
+form input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    width: 100%;
+}
+
+.edit-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+<script>
+    function editProfile() {
+    document.getElementById('profile-info').style.display = 'none';
+    document.getElementById('edit-form').style.display = 'block';
+}
+
+function cancelEdit() {
+    document.getElementById('edit-form').style.display = 'none';
+    document.getElementById('profile-info').style.display = 'block';
+}
+
+function validateForm() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const properties = document.getElementById('properties').value;
+
+    if (name === '' || email === '' || properties === '') {
+        alert('All fields are required.');
+        return false;
+    }
+
+    if (properties < 0) {
+        alert('Number of properties cannot be negative.');
+        return false;
+    }
+
+    // Simulate saving changes
+    document.getElementById('user-name').innerText = name;
+    document.getElementById('user-email').innerText = email;
+    document.getElementById('user-properties').innerText = properties;
+
+    cancelEdit();
+    return false; // Prevent form submission
+}
+
+</script>
